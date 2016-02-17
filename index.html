@@ -104,7 +104,7 @@ body{
     var player;
     function onYouTubePlayerAPIReady() {
       player = new YT.Player('player', {
-        playerVars: { 'autoplay': 1, 'controls': 0,'autohide':0,'wmode':'opaque' },
+        playerVars: { 'autoplay': 1, 'controls': 1,'autohide':0,'wmode':'opaque' },
         videoId: 'qtyoxfMk_Ec',
         events: {
           'onReady': onPlayerReady
