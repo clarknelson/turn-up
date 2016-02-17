@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>APPLEBOTTOMJEANS</title>
+
+<style>
+body{
+  margin: 0;
+  background: black;
+}
+
+.slide{
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  overflow: hidden;
+}
+.slide iframe{
+  width: 100%;
+  height: 100%;
+}
+
+.mask{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.container{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  pointer-events: none;
+}
+.container .button{
+  width: 72px;
+  display: inline-block;
+  padding: 50px 0 50px 25px;
+  opacity: 0.4;
+  cursor: pointer;
+  pointer-events: auto;
+}
+.container .button:hover{
+  opacity: 1;
+}
+.container .button svg{
+  width: 100%;
+}
+.container .button svg path{
+  fill: white;
+}
+.mute.button{
+  display: none;
+}
+
+</style>
+
+  <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+
+
+</head>
+
+
+<body>
+  <!-- Apple bottom jeans cant be embedded -->
+
+    <div id="turnUp" class="slide">
+      <div class="container">
+        <div class="mute button">
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 100 125" enable-background="new 0 0 100 100" xml:space="preserve">
+            <path d="M6.2,58.6V41.4c0-4.2,3.4-7.6,7.6-7.6h15.6l18.8-13c2-1.1,4.4,0.3,4.4,2.5v53.3c0,2.3-2.4,3.7-4.4,2.5l-18-13H13.8  C9.6,66.2,6.2,62.8,6.2,58.6z M67.4,66.2l10.2-10.2l10.2,10.2l5.9-5.9L83.5,50l10.2-10.2l-5.9-5.9L77.6,44L67.4,33.8l-5.9,5.9  L71.7,50L61.4,60.2L67.4,66.2z"/>
+          </svg>
+        </div>
+        <div class="sound button">
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 100 125" enable-background="new 0 0 100 100" xml:space="preserve">
+            <path d="M29.5,66.2H13.1c-4.2,0-7.6-3.4-7.6-7.6V41.4c0-4.2,3.4-7.6,7.6-7.6h15.6l18.8-13c2-1.1,4.4,0.3,4.4,2.5v53.3  c0,2.3-2.4,3.7-4.4,2.5L29.5,66.2z M73.3,21.7c15.6,15.6,15.6,41,0,56.7l6.7,6.7c19.3-19.3,19.3-50.7,0-70L73.3,21.7z M67.4,72.5  c12.4-12.4,12.4-32.6,0-45l-6.7,6.7C65,38.4,67.3,44,67.3,50c0,6-2.3,11.6-6.6,15.8L67.4,72.5z"/>
+          </svg>
+        </div>
+      </div>
+      <div class="mask"></div>
+      <div id="player"></div>
+      <!-- <iframe width="560" height="315" src="https://www.youtube.com/embed/qtyoxfMk_Ec?autoplay=1" frameborder="0" allowfullscreen></iframe> -->
+    </div>
+
+
+  <script>
+    var tag = document.createElement('script');
+    tag.src = "http://www.youtube.com/player_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+
+
+    var player;
+    function onYouTubePlayerAPIReady() {
+      player = new YT.Player('player', {
+        playerVars: { 'autoplay': 1, 'controls': 0,'autohide':0,'wmode':'opaque' },
+        videoId: 'qtyoxfMk_Ec',
+        events: {
+          'onReady': onPlayerReady
+        }
+      });
+    }
+
+    // 4. The API will call this function when the video player is ready.
+    function onPlayerReady(event) {
+      event.target.mute();
+    }
+
+
+    $(".mute.button").on('click', function(){
+      player.mute();
+      $(".sound.button").show();
+      $(this).hide();
+    });
+    $(".sound.button").on('click', function(){
+      //alert("sound");
+      player.unMute();
+      $(".mute.button").show();
+      $(this).hide();
+    });
+  </script>
+</body>
+</html>
